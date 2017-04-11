@@ -1,0 +1,55 @@
+@import microjson 
+
+
+pool: <int> 4
+pool: <string> 5
+pool: <dict> 4
+pool: <list> 4
+pool: <bool> 2
+pool: <float> 5
+
+
+<string> += ","
+<string> += <['A'..'Z']>
+<string> := <['a'..'z']>
+<string> += chr(34)
+<string> += chr(39)
+<string> += <[" ", ":", "[", "]", "{", "}"]>
+
+
+<bool>:= True
+<bool>:= False
+
+
+<int> :=  <[1..20]>
+<float>:= float(<int>)
+
+
+<dict> := {}
+<dict> [<string>]=<bool>
+<dict> [<string>]=<int>
+<dict> [<string>]=<string>
+<dict> [<string>]=<float>
+
+
+<list> := []
+<list>.append(<string>)
+<list>.append(<float>)
+<list>.append(<int>)
+<list>.append(<bool>)
+
+
+microjson.decode(microjson.encode(<int>))
+microjson.decode(microjson.encode(<float>))
+microjson.decode(microjson.encode(<string>))
+microjson.decode(microjson.encode(<dict>))
+microjson.decode(microjson.encode(<list>))
+microjson.decode(microjson.encode(<bool>))
+
+
+property: microjson.decode(microjson.encode(<int>))==<int,1>
+property: microjson.decode(microjson.encode(<bool>))==<bool,1>
+property: microjson.decode(microjson.encode(<float>))==<float,1>
+property: microjson.decode(microjson.encode(<string>))==<string,1>
+property: microjson.decode(microjson.encode(<dict>))==<dict,1>
+property: microjson.decode(microjson.encode(<list>))==<list,1>
